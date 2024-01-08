@@ -1,5 +1,3 @@
-
-
 let accumulatorHtml = '';
 let mainPage = document.querySelector('.js-main-page');
 
@@ -21,7 +19,7 @@ function renderPage(){
         <img src="" alt="image">
       </div>
 
-      <p class="price-container">$10.90</p>
+      <p class="price-container">$${product.priceCents.toFixed(2)}</p>
 
       <select name="quantity" id="quantity">
         <option value="">Qty</option>
@@ -45,6 +43,7 @@ function renderPage(){
 `
   accumulatorHtml += generateHtml});
   mainPage.innerHTML = accumulatorHtml;
+  renderCartButton();
 };
 
 // end of function
@@ -54,21 +53,35 @@ renderPage();
 
 
 
+let cartQuantity = 0;
 
-function renderButton (){
-let buttons = document.querySelectorAll('.button')
+function renderCart(){
+  let cartQuantityContainer = document.querySelector('.js-cart-quantity')
+  cartQuantityContainer.innerHTML = cartQuantity;
+}
+ 
+renderCart();
+
+function renderCartButton (){
+let addCartButton = document.querySelectorAll('button')
 accumulatorHtml = '';
 
-buttons.forEach((button, value)=>{
-  button.addEventListener('click', (e)=>{
-    items.splice(value, 1);
-    cart.push(button.innerHTML);
-    console.log(cart)
+addCartButton.forEach((cartButton, value)=>{
+  cartButton.addEventListener('click', (e)=>{
+    products.forEach((product)=>{ return products[value]});
+    cart.push(products[value].name);
+    cartQuantity =cart.length;
+    renderCart();
+    renderCartButton()
     renderPage()
-    renderButton()})});
+    })});
 ;}
 
-renderButton()
+
+
+
+
+
 
 
 

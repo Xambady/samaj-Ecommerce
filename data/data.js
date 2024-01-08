@@ -7,7 +7,7 @@ const products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 30, 
   },
 
   {
@@ -18,7 +18,7 @@ const products = [
       stars: '45',
       reviews: 70
     },
-    priceCents: 300, 
+    priceCents: 450, 
   },
   {
     name: 'Lion toy',
@@ -28,7 +28,7 @@ const products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 45, 
   },
   {
     name: 'Elephant toy',
@@ -38,7 +38,7 @@ const products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 39, 
   },
   {
     name: 'Chicken toy',
@@ -48,7 +48,7 @@ const products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 65, 
   },
   {
     name: 'Chameleon toy',
@@ -58,17 +58,17 @@ const products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 89, 
   },
   {
-    name: 'Dinosaur toy',
+    name: 'Dinsaur toy',
     imageName: 'dinosaur',
     rating :
     {
       stars: '45',
       reviews: 87
     },
-    priceCents: 300, 
+    priceCents: 64, 
   },
 
 ];
