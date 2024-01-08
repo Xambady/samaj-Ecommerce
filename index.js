@@ -68,9 +68,10 @@ accumulatorHtml = '';
 
 addCartButton.forEach((cartButton, value)=>{
   cartButton.addEventListener('click', (e)=>{
-    products.forEach((product)=>{ return products[value]});
+    products.forEach(()=>{ return products[value]});
     cart.push(products[value].name);
     cartQuantity =cart.length;
+    console.log(cart)
     renderCart();
     renderCartButton()
     renderPage()

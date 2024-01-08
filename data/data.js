@@ -1,5 +1,6 @@
 const products = [
-  {
+  { 
+    id : '000-000-000a',
     name: 'white wolf toy',
     imageName: 'wolf',
     rating :
@@ -10,7 +11,8 @@ const products = [
     priceCents: 30, 
   },
 
-  {
+  { 
+    id : '000-000-000b',
     name: 'Black Bear toy',
     imageName: 'bear',
     rating :
@@ -20,7 +22,8 @@ const products = [
     },
     priceCents: 450, 
   },
-  {
+  { 
+    id : '000-000-000c',
     name: 'Lion toy',
     imageName: 'lion',
     rating :
@@ -30,7 +33,8 @@ const products = [
     },
     priceCents: 45, 
   },
-  {
+  { 
+    id : '000-000-000d',
     name: 'Elephant toy',
     imageName: 'elephant',
     rating :
@@ -41,6 +45,7 @@ const products = [
     priceCents: 39, 
   },
   {
+    id : '000-000-000f',
     name: 'Chicken toy',
     imageName: 'chicken',
     rating :
@@ -50,7 +55,8 @@ const products = [
     },
     priceCents: 65, 
   },
-  {
+  { 
+    id : '000-000-000g',
     name: 'Chameleon toy',
     imageName: 'chameleon',
     rating :
@@ -61,6 +67,7 @@ const products = [
     priceCents: 89, 
   },
   {
+    id : '000-000-000h',
     name: 'Dinsaur toy',
     imageName: 'dinosaur',
     rating :
