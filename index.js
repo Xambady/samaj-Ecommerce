@@ -2,7 +2,6 @@ let accumulatorHtml = '';
 let mainPage = document.querySelector('.js-main-page');
 
 
-
 // beginning of function
 
 function renderPage(){ 
@@ -21,7 +20,7 @@ function renderPage(){
 
       <p class="price-container">$${product.priceCents.toFixed(2)}</p>
 
-      <select name="quantity" id="quantity">
+      <select name="quantity" id="quantity" class='js-dropdown-selector'>
         <option value="">Qty</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -43,6 +42,7 @@ function renderPage(){
 `
   accumulatorHtml += generateHtml});
   mainPage.innerHTML = accumulatorHtml;
+  accumulatorHtml = '';
   renderCartButton();
 };
 
@@ -53,30 +53,64 @@ renderPage();
 
 
 
-let cartQuantity = 0;
 
-function renderCart(){
-  let cartQuantityContainer = document.querySelector('.js-cart-quantity')
-  cartQuantityContainer.innerHTML = cartQuantity;
-}
- 
-renderCart();
 
 function renderCartButton (){
-let addCartButton = document.querySelectorAll('button')
-accumulatorHtml = '';
+let addCartButton = document.querySelectorAll('button');
+let dropdownSelectors = document.querySelectorAll('.js-dropdown-selector')
 
-addCartButton.forEach((cartButton, value)=>{
+addCartButton.forEach((cartButton, index)=>{
   cartButton.addEventListener('click', (e)=>{
-    products.forEach(()=>{ return products[value]});
-    cart.push(products[value].name);
-    cartQuantity =cart.length;
-    console.log(cart)
-    renderCart();
-    renderCartButton()
+    let productId = products[index].id;
+    let dropDownValue = dropdownSelectors[index].value;
+
+    
+
+    let matchingItem;
+    cart.forEach((cartItem)=>{
+      if (productId === cartItem.productid){
+        matchingItem = cartItem}
+      });
+
+     
+
+  if(matchingItem){
+    matchingItem.quantity += Number(dropDownValue) || 1;
+    console.log(matchingItem)
+  }
+  else{
+    cart.push(
+      {
+        productid: productId,
+        quantity: Number(dropDownValue) || 1
+      }
+    )
+  }
+   
+    calculateCartQuantity()
     renderPage()
     })});
 ;}
+
+
+
+
+
+
+
+function calculateCartQuantity (){
+  let cartQuantityContainer = document.querySelector('.js-cart-quantity');
+  let cartQuantity = 0;
+  cart.forEach((item)=>{
+    cartQuantity += item.quantity;
+  
+  });
+  cartQuantityContainer.innerHTML = cartQuantity;
+}
+
+calculateCartQuantity()
+
+
 
 
 
