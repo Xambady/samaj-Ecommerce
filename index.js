@@ -2,6 +2,7 @@ let accumulatorHtml = '';
 let mainPage = document.querySelector('.js-main-page');
 
 
+
 // beginning of function
 
 function renderPage(){ 
@@ -27,11 +28,16 @@ function renderPage(){
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       
       </select>
 
       <div class="cart-container">
-        <button class="cart-button" data-product-id="${product.id}">
+        <button class="cart-button-blue" data-product-id="${product.id}">
           Add to Cart
         </button> 
       </div>
@@ -40,8 +46,7 @@ function renderPage(){
 
     </div>
 `;
-
-
+  renderCartButton();
   accumulatorHtml += generateHtml});
   mainPage.innerHTML = accumulatorHtml;
   accumulatorHtml = '';
@@ -54,15 +59,16 @@ renderPage();
 //start of render cart button function
 
 function renderCartButton(){
-
-}
-
-let cartButtons = document.querySelectorAll('.cart-button')
+let cartButtons = document.querySelectorAll('.cart-button-blue')
 
 cartButtons.forEach((button, index)=>{
   button.addEventListener('click', ()=>{
     //turns clicked buttons green
     button.classList.add('color-green');
+    //reverts button color back to blue
+    setTimeout(()=>{
+      button.classList.remove('color-green')
+    }, 1000)
     //selecting display paragraph in DOM & adding innerhtml and classlist for cart adding pop up
     let displays = document.querySelectorAll('.js-cart-display');
     displays[index].innerHTML = 'product added';
@@ -74,7 +80,7 @@ cartButtons.forEach((button, index)=>{
     }, 1000);
     //grabbing values from dropdown selectors to use as quantity
     let dropDownSelectors = document.querySelectorAll('.js-dropdown-selectors')
-    let dropDownValue = dropDownSelectors[index].value
+    let dropDownValue = dropDownSelectors[index].value;
     //pushing items to cart, used button forEach index to point to elements in products array
     let productId = products[index].id;
     let matchingItem;
@@ -96,12 +102,15 @@ cartButtons.forEach((button, index)=>{
     cart.forEach((item)=>{
       let cartQuantity = document.querySelector('.cart-quantity')
       quantityAccumulator += Number(item.quantity);
-      cartQuantity.innerHTML = quantityAccumulator;
+      cartQuantity.innerHTML = quantityAccumulator; 
+    //resetting dropdown value to 1
+    dropDownSelectors[index].value = 1
       
     }); 
   })
- 
 })
+}
+renderCartButton();
 
 
 
