@@ -19,6 +19,7 @@ body::-webkit-scrollbar{
   justify-content: center;
   align-items: center;
   color: white;
+  z-index: 50;
 
 }
 
@@ -105,8 +106,60 @@ select{
 }
 
 
-#quantity{
-  width: 50px;
+.cart-display{
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  top: 150px;
+  left: 50px;
+}
+
+.remove{
+  animation-name: widen;
+  animation-duration: 2s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes widen{
+10%{
+  background-color: rgba(0, 128, 0, 0.251);
+}
+30%{
+  background-color: rgba(0, 128, 0, 0.377);
+}
+70%{
+  background-color: rgba(0, 128, 0, 0.603);
+}
+100%{
+  background-color: rgba(0, 128, 0, 0.879);
+}
+}
+
+.image-container{
+  position: relative;
+}
+
+/* to be used on created element for pop up*/
+.addCart-display{
+  width: 150px;
+  position: absolute;
+  color: white;
+  font-weight:500;
+  opacity: 1;
+  top: 90px;
+  left: 20px;
+  padding: 5px;
+  backdrop-filter: blur(50%);
+  background-color: rgba(0, 36, 128, 0.758);
+  border-radius: 20px;
+  text-align: center;
+}
+
+
+.dropdown-selector{
+  width: 40px;
+  height: 25px;
   outline: none;
   margin-bottom: 10px;
 }
@@ -115,6 +168,17 @@ select{
 
 .cart-button{
   background-color: rgb(27, 27, 233);
+  border-style: none;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+
+.color-green{
+  background-color: green;
   border-style: none;
   padding: 20px;
   padding-top: 10px;

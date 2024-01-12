@@ -78,5 +78,17 @@ const products = [
     priceCents: 64, 
   },
 
+  { 
+    id : '000-000-000i',
+    name:  'bigger white wolf toy',
+    imageName: 'wolf',
+    rating :
+    {
+      stars: '45',
+      reviews: 87
+    },
+    priceCents: 30, 
+  },
+
 ];
 
