@@ -1,6 +1,11 @@
 body{
   background-color: rgb(234, 228, 228); 
   padding-top: 40px;
+  padding-left: 10px;
+}
+a{
+  text-decoration: none;
+  color: white;
 }
 
 body::-webkit-scrollbar{
@@ -84,7 +89,7 @@ select{
 
 .main-page{
  display: grid;
- grid-template-columns: 200px 200px 200px 200px 200px;
+ grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px;
  background-color: rgb(234, 228, 228);
  column-gap: 26px;
  row-gap: 5px
@@ -114,28 +119,6 @@ select{
   left: 50px;
 }
 
-.remove{
-  animation-name: widen;
-  animation-duration: 2s;
-  animation-iteration-count: 2;
-  animation-direction: alternate;
-}
-
-@keyframes widen{
-10%{
-  background-color: rgba(0, 128, 0, 0.251);
-}
-30%{
-  background-color: rgba(0, 128, 0, 0.377);
-}
-70%{
-  background-color: rgba(0, 128, 0, 0.603);
-}
-100%{
-  background-color: rgba(0, 128, 0, 0.879);
-}
-}
-
 .image-container{
   position: relative;
 }
@@ -154,8 +137,19 @@ select{
   background-color: rgba(0, 36, 128, 0.758);
   border-radius: 20px;
   text-align: center;
+  animation-name: cartAppear;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
 }
 
+@keyframes cartAppear{
+  0%{width: 120px;}
+90%{
+  width: 160px;
+}
+100%{
+  width: 150px
+}}
 
 .dropdown-selector{
   width: 45px;
@@ -201,9 +195,9 @@ select{
     background-color: rgb(52, 168, 52);
   }
   50%{
-    background-color: rgb(52, 168, 52);
+    background-color: rgba(52, 168, 52, 0.817);
   }
-  80%{
+  60%{
     background-color: rgb(87, 87, 237);
   }
   100%{

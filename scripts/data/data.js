@@ -1,4 +1,4 @@
-const products = [
+export let products = [
   { 
     id : '000-000-000a',
     name: 'white wolf toy',
