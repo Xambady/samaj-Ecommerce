@@ -1,18 +1,13 @@
-export let cart = [
-  {
-  id: '000-000-000a',
-  quantity: 1
-  },
-  {
-    id: '000-000-000b',
-    quantity: 2
-  },
-  {
-    id: '000-000-000c',
-    quantity: 2
-  }
 
-];
+export let cart = JSON.parse(localStorage.getItem('cart'));
+export function saveToStorage(){
+  localStorage.setItem('cart', JSON.stringify(cart))  
+}
+
+saveToStorage()
+
+
+
 
 
 

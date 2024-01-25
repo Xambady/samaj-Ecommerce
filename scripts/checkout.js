@@ -1,67 +1,165 @@
-import {cart} from "./cart.js"
+import {cart, saveToStorage} from "./cart.js"
 import {products} from "./data/data.js"
+import dayjs from "http://unpkg.com/dayjs@1.11.10/esm/index.js"
+import { deliveryTimes } from "../scripts/data/deliveryTime.js";
 
 
 
 
 function loadCheckoutPage(){
   let checkoutHtmlAccumulator = '';
+  let checkoutQuantity = 0;
 
-  cart.forEach((cartItems)=>{
-  let newProduct;
-  products.forEach((product)=>{
-   if (cartItems.id === product.id){
-      newProduct = product
-   }
-  });
+  cart.forEach((cartItems)=>{ 
+    let newProduct;
+    products.forEach((product)=>{
+    if (cartItems.id === product.id){
+        newProduct = product
+    }});
 
-  let checkoutHtml = `
-  <div class="items">
-    <div class="image-container">
-      <img src="./images/${newProduct.imageName}.jpg" alt="image" class="item-image">
-    </div>
+    //looping through deliveryTimes to obtain each element inside
+    let optionMatch;
+    deliveryTimes.forEach((eachOption)=>{
+      if(cartItems.deliveryId === eachOption.id){
+        optionMatch = eachOption
+      }
+    })
+    //then we run dayjs and use optionMatch deliveryDate
+    let todayDate = dayjs();
+    todayDate = todayDate.add(optionMatch.deliveryDate, 'days').format('dddd, MMMM D')
 
-    <div class="product-details">
-      <p>
-      Product Name: ${newProduct.name}
-      </p>
-      <P>
-        Quantity : ${cartItems.quantity}
-      </P>
-      <button>Update</button>
-      <button class="delete-buttons">delete</button>
-    </div>
-  </div>
+
+    let checkoutHtml = `
+      <div class="items">
+        <div class="image-container">
+          <p class="delivery-date-header">${todayDate}</p>
+          <img src="./images/${newProduct.imageName}.jpg" alt="image" class="item-image">
+        </div>
+
+        <div class="product-details">
+          <p>
+          Product Name: ${newProduct.name}
+          </p>
+          <P>
+            Quantity : ${cartItems.quantity}
+          </P>
+          <p>Price: $${(newProduct.priceCents).toFixed(2)}</p>
+          <button>Update</button>
+          <button class="delete-buttons">delete</button>
+        </div>
+        <div class="delivery-options">
+          <p>Choose a Delivery Option</p>
+          ${loadDeliveryTime(deliveryTimes, cartItems)}
+        </div>
+      </div>`;
+    checkoutHtmlAccumulator += checkoutHtml;
+    checkoutQuantity += cartItems.quantity;
   
-  `  ;
-  checkoutHtmlAccumulator += checkoutHtml;
-});
-let checkoutContainer = document.querySelector('.checkout-container');
+  });
+  //end of for loop
+  let checkoutContainer = document.querySelector('.checkout-container');
 
-checkoutContainer.innerHTML = checkoutHtmlAccumulator + `
-<div class="checkout-summary">
-  <p>SUMMARY</p>
-  <P>Subtotal</P>
-  <p>Estimated Delivery & Handling</p>
-  <P>Taxes</P>
-  <P>TOTAL</P>
-</div>`;
+  checkoutContainer.innerHTML = checkoutHtmlAccumulator + `
+  <div class="checkout-summary">
+    <p class="summary-title">SUMMARY</p>
+    <P class="subtotal">Subtotal: </P>
+    <P>Taxes: </P>
+    <P>TOTAL: </P>
+  </div>`;
+
+  let checkoutQuantityContainer = document.querySelector('.checkout-quantity');
+  checkoutQuantityContainer.innerHTML = checkoutQuantity
+
+  let deleteButtons = document.querySelectorAll(".delete-buttons");
+  deleteButtons.forEach((deleteButton, index)=>{
+    deleteButton.addEventListener('click', ()=>{
+      cart.splice(index, 1);
+      saveToStorage();
+      loadCheckoutPage()})
+  }); 
+  selectDate();
+}
+
+loadCheckoutPage();
 
 
-let deleteButtons = document.querySelectorAll(".delete-buttons");
-deleteButtons.forEach((deleteButton, index)=>{
-  deleteButton.addEventListener('click', ()=>{
-    cart.splice(index, 1);
-    loadCheckoutPage()})});
+
+ 
+
+function loadDeliveryTime(deliveryTimes, cartItems){
+  let deliveryTimeHtml = '';
+  //ran a loop to generate html for the data in deliveryTimes file
+  deliveryTimes.forEach((deliveryTime)=>{
+    let today = dayjs();
+    let dayString = today.add(deliveryTime.deliveryDate, 'days').format('dddd, MMMM D')
+
+    //this code helps us to display if the shipping is free or not
+    let deliveryCost;
+    if (deliveryTime.shippingCostCents===0){
+      deliveryCost = 'Free'
+    }
+    else{
+      deliveryCost =`$${(deliveryTime.shippingCostCents)/100}`
+    }
+    //this code helps us provide a default check for the radio button
+    let checked;
+    if(deliveryTime.id === cartItems.deliveryId){
+      checked = "checked"
+    } else{
+      checked = ''
+    }
+    //generated html
+    deliveryTimeHtml += `    
+    <div class="radio-button-container js-delivery-options" data-product-id="${cartItems.id}"
+    data-delivery-id="${deliveryTime.id}">
+      <input type="radio" ${checked} name="delivery-option-${cartItems.id}"/>
+      <div>
+        <div class="day-string">${dayString}</div>
+        <div class"delivery-time">
+        ${deliveryCost} - Shipping</div>
+      </div>
+    </div>
+        `;
+
+  });
+  //end of loop
+  //returning the accumulated html of the page.
+  return deliveryTimeHtml 
+
 }
 
 
-loadCheckoutPage();
+
+
+
+
+function selectDate(){
+  let deliveryOptions = document.querySelectorAll(".js-delivery-options");
+
+  deliveryOptions.forEach((option)=>{
+    option.addEventListener('click', ()=>{
+      let datasetId = option.dataset.productId;
+      let datasetDeliveryId = option.dataset.deliveryId;
+      let itemMatch;
+      cart.forEach((cartItem)=>{
+        if(cartItem.id === datasetId){
+          itemMatch = cartItem}});
+
+      let deliveryTimeMatch;
+
+      deliveryTimes.forEach((delivery)=>{
+        if (delivery.id === datasetDeliveryId){
+          deliveryTimeMatch = delivery
+        }
+      })
+        
+      console.log(datasetDeliveryId);  
+      itemMatch.deliveryId = deliveryTimeMatch.id
+      saveToStorage();
+      loadCheckoutPage();
+    })
+  })}
  
-
-
-
-
 
 
 

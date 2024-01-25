@@ -1,4 +1,4 @@
-import {cart, loadCart} from "./cart.js"
+import {cart, loadCart, saveToStorage} from "./cart.js"
 import {products} from "./data/data.js"
 
 
@@ -104,19 +104,29 @@ cartButtons.forEach((button, index)=>{
     }else{
       cart.push({
         id: productId,
-        quantity: Number(dropDownValue)
+        quantity: Number(dropDownValue),
+        deliveryId: '1'
       })
     };
     //looping cart and adding all quantities to display in dom
     loadCart();
     //resetting dropdown value to 1
     dropDownSelectors[index].value = 1;
+    saveToStorage();
 
   
   })
 })
 }
 renderCartButton();
+
+// let searchButton = document.querySelector('.search-text');
+
+// searchButton.addEventListener('click', ()=>{
+//   let textBox = document.querySelector('.textbox');
+//   console.log(textBox.value[0])
+  
+// })
 
 
 
