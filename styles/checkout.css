@@ -54,6 +54,13 @@ body::-webkit-scrollbar{
  
 }
 
+.delivery-date-header{
+  color: green;
+  font-size: 2.5vh;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
 .image-container{
   margin-top: 2vh;
   height: 30vh;
