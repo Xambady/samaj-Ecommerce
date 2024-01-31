@@ -85,7 +85,10 @@ function loadCheckoutPage(){
     <P class="taxes">Tax(<span class="tax-percent">5%</span>): $${formatCurrency(tax)}</P>
     <P class="total">TOTAL: $${formatCurrency(total)}</P>
     <br/>
-    <p class="delete-all-button js-delete-all-button">Delete All Cart Items</p>
+    <div class="button-section">
+      <p class="delete-all-button js-delete-all-button">Delete All Cart Items</p>
+      <p class="placeorder-button"> Place Order</p>
+    </div>
   </div>`
 
   let checkoutQuantityContainer = document.querySelector('.checkout-quantity');
