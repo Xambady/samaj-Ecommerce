@@ -1,4 +1,4 @@
-import {cart, saveToStorage} from "./cart.js"
+import {cart, saveToStorage, formatCurrency} from "./cart.js"
 import {products} from "./data/data.js"
 import dayjs from "http://unpkg.com/dayjs@1.11.10/esm/index.js"
 import { deliveryTimes } from "../scripts/data/deliveryTime.js";
@@ -9,6 +9,10 @@ import { deliveryTimes } from "../scripts/data/deliveryTime.js";
 function loadCheckoutPage(){
   let checkoutHtmlAccumulator = '';
   let checkoutQuantity = 0;
+  let productTotalCost = 0;
+  let shippingTotal = 0;
+  let total = 0;
+  let tax = 0
 
   cart.forEach((cartItems)=>{ 
     let newProduct;
@@ -43,7 +47,7 @@ function loadCheckoutPage(){
           <P>
             Quantity : ${cartItems.quantity}
           </P>
-          <p>Price: $${(newProduct.priceCents).toFixed(2)}</p>
+          <p>Price: $${(newProduct.priceCents*cartItems.quantity).toFixed(2)}</p>
           <button>Update</button>
           <button class="delete-buttons">delete</button>
         </div>
@@ -54,18 +58,35 @@ function loadCheckoutPage(){
       </div>`;
     checkoutHtmlAccumulator += checkoutHtml;
     checkoutQuantity += cartItems.quantity;
+
+    //calculating for the summary page
+   
+    productTotalCost += (newProduct.priceCents*cartItems.quantity);
+    shippingTotal += (optionMatch.shippingCostCents/100);
+    tax += (productTotalCost * 0.05);
+   
+    
+
+
   
   });
   //end of for loop
+
+
+  total +=  (productTotalCost + tax + shippingTotal);
+
   let checkoutContainer = document.querySelector('.checkout-container');
 
   checkoutContainer.innerHTML = checkoutHtmlAccumulator + `
   <div class="checkout-summary">
     <p class="summary-title">SUMMARY</p>
-    <P class="subtotal">Subtotal: </P>
-    <P>Taxes: </P>
-    <P>TOTAL: </P>
-  </div>`;
+    <P class="subtotal">Subtotal: $${formatCurrency(productTotalCost)} </P>
+    <P class="taxes">Shipping: $${shippingTotal.toFixed(2)}</P>
+    <P class="taxes">Tax(<span class="tax-percent">5%</span>): $${formatCurrency(tax)}</P>
+    <P class="total">TOTAL: $${formatCurrency(total)}</P>
+    <br/>
+    <p class="delete-all-button js-delete-all-button">Delete All Cart Items</p>
+  </div>`
 
   let checkoutQuantityContainer = document.querySelector('.checkout-quantity');
   checkoutQuantityContainer.innerHTML = checkoutQuantity
@@ -77,6 +98,21 @@ function loadCheckoutPage(){
       saveToStorage();
       loadCheckoutPage()})
   }); 
+
+  let deleteAllButton = document.querySelector('.js-delete-all-button');
+  deleteAllButton.addEventListener('click', ()=>{
+
+    while (cart.length > 0){
+      cart.pop();
+    };
+  
+    deleteAllButton.innerHTML = '<p>All Cart Items deleted</p>';
+    saveToStorage();
+    loadCheckoutPage();
+   });
+  
+ 
+
   selectDate();
 }
 
@@ -152,19 +188,10 @@ function selectDate(){
           deliveryTimeMatch = delivery
         }
       })
-        
-      console.log(datasetDeliveryId);  
+         
       itemMatch.deliveryId = deliveryTimeMatch.id
       saveToStorage();
       loadCheckoutPage();
+  
     })
-  })}
- 
-
-
-
-
-
-
-
-
+  })};

@@ -92,7 +92,9 @@ select{
  grid-template-columns: 200px 200px 200px 200px 200px 200px 200px;
  background-color: rgb(234, 228, 228);
  column-gap: 26px;
- row-gap: 5px
+ row-gap: 5px;
+ justify-content: center;
+ align-items: center;
 }
 
 .parent-container{

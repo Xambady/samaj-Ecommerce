@@ -125,3 +125,21 @@ body::-webkit-scrollbar{
   color: gray;
 }
 
+.tax-percent{
+  font-size: 1.8vh;
+  color: gray;
+}
+
+
+.delete-all-button{
+  background-color: rgb(168, 8, 8);
+  width: 23vh;
+  color: White;
+  padding-left: 5vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 1vh;
+  cursor: pointer;
+
+}
+
