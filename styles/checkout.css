@@ -130,7 +130,11 @@ body::-webkit-scrollbar{
   color: gray;
 }
 
-
+.button-section{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1vh;
+}
 .delete-all-button{
   background-color: rgb(168, 8, 8);
   width: 23vh;
@@ -140,6 +144,18 @@ body::-webkit-scrollbar{
   padding-bottom: 1vh;
   border-radius: 1vh;
   cursor: pointer;
+}
+.placeorder-button{
+  background-color: green;
+  width: 15vh;
+  color: White;
+  padding-left: 5vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  border-radius: 1vh;
+  cursor: pointer;
 
 }
+
+
 
