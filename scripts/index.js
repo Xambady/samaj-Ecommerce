@@ -1,9 +1,10 @@
-import {cart, loadCart, saveToStorage} from "./cart.js"
+import {loadCart, saveToStorage, addToCart} from "./cart.js"
 import {products} from "./data/data.js"
 
 
-let accumulatorHtml = '';
-let mainPage = document.querySelector('.js-main-page');
+
+
+
 
 
 loadCart();
@@ -11,6 +12,9 @@ loadCart();
 // beginning of render page function
 
 function renderPage(){ 
+  let accumulatorHtml = '';
+  let mainPage = document.querySelector('.js-main-page');
+
   products.forEach((product)=>{
   let generateHtml = `
   <div class="parent-container js-parent-container">
@@ -64,59 +68,43 @@ renderPage();
 //start of render cart button function
 
 function renderCartButton(){
-let cartButtons = document.querySelectorAll('.cart-button-blue')
+  let cartButtons = document.querySelectorAll('.cart-button-blue')
 
-cartButtons.forEach((button, index)=>{
-  button.addEventListener('click', ()=>{
-    //turns clicked buttons green
-    button.classList.add('color-green');
-    //reverts clicked button color to blue
-    setTimeout(()=>{
-      button.classList.remove('color-green')
-    }, 1000)
-    //writing timeout to remove display paragraph from the page
-    setTimeout(()=>{
-      displays[index].innerHTML = '';
-      displays[index].classList.remove('addCart-display');
-    }, 1000);
-    //grabbing values from dropdown selectors to use as quantity, used button forEach index to point to elements in dropdown nodelist 
-    let dropDownSelectors = document.querySelectorAll('.js-dropdown-selectors')
-    let dropDownValue = dropDownSelectors[index].value;
-     //selecting display paragraph in DOM & adding innerhtml and classlist for cart adding pop-up
-     let displays = document.querySelectorAll('.js-cart-display');
-     displays[index].classList.add('addCart-display');
-     if(dropDownValue > 1){
-      displays[index].innerHTML = `${dropDownValue} products added`;
-     } else{
-      displays[index].innerHTML = `${dropDownValue} product added`;
-     }
-   
-    //pushing items to cart, used button forEach index to point to elements in products array
-    let productId = products[index].id;
-    let matchingItem;
-    cart.forEach((cartItem)=>{
-      if(productId === cartItem.id){
-        matchingItem = cartItem
+  cartButtons.forEach((button, index)=>{
+    button.addEventListener('click', ()=>{
+      //turns clicked buttons green
+      button.classList.add('color-green');
+      //reverts clicked button color to blue
+      setTimeout(()=>{
+        button.classList.remove('color-green')
+      }, 1000)
+      //writing timeout to remove display paragraph from the page
+      setTimeout(()=>{
+        displays[index].innerHTML = '';
+        displays[index].classList.remove('addCart-display');
+      }, 1000);
+      //grabbing values from dropdown selectors to use as quantity, used button forEach index to point to elements in dropdown nodelist 
+      let dropDownSelectors = document.querySelectorAll('.js-dropdown-selectors')
+      let dropDownValue = dropDownSelectors[index].value;
+      //selecting display paragraph in DOM & adding innerhtml and classlist for cart adding pop-up
+      let displays = document.querySelectorAll('.js-cart-display');
+      displays[index].classList.add('addCart-display');
+      if(dropDownValue > 1){
+        displays[index].innerHTML = `${dropDownValue} products added`;
+      } else{
+        displays[index].innerHTML = `${dropDownValue} product added`;
       }
-    })
-    if(matchingItem){
-      matchingItem.quantity += Number(dropDownValue)
-    }else{
-      cart.push({
-        id: productId,
-        quantity: Number(dropDownValue),
-        deliveryId: '1'
-      })
-    };
-    //looping cart and adding all quantities to display in dom
-    loadCart();
-    //resetting dropdown value to 1
-    dropDownSelectors[index].value = 1;
-    saveToStorage();
+      //pushing items to cart, used button forEach index to point to elements in products array
+      addToCart(products, dropDownValue, index)
+      //looping cart and adding all quantities to display in dom
+      loadCart();
+      //resetting dropdown value to 1
+      dropDownSelectors[index].value = 1;
+      saveToStorage();
 
-  
+    
+    })
   })
-})
 }
 renderCartButton();
 

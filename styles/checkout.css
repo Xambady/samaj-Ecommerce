@@ -80,6 +80,14 @@ body::-webkit-scrollbar{
   font-weight: 900;
 }
 
+.delete-buttons{
+  background-color:  rgb(168, 8, 8);
+  border-style: none;
+  color: white;
+  padding: 0.6vh;
+  border-radius: 0.5vh;
+}
+
 .radio-button-container{
   display: flex;
   flex-direction: row;
