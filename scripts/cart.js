@@ -1,10 +1,20 @@
-export let cart = JSON.parse(localStorage.getItem('cart'))|| [];
+export let cart; 
+export function loadFromStorage(){
+ cart = JSON.parse(localStorage.getItem('cart')) || [{
+  id: '000-000-000a',
+  quantity: 3,
+  deliveryId: '1'}];};
+
+  loadFromStorage();
+
+  // console.log(cart)
+
 
 export function saveToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart))  
 }
 
-
+saveToStorage();
 
 //used in index.js file
 export function loadCart(){
