@@ -9,6 +9,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 30, 
+    keyword : ['wolf', 'toy', 'white']
   },
 
   { 
@@ -21,6 +22,7 @@ export let products = [
       reviews: 70
     },
     priceCents: 450, 
+    keyword : ['bear', 'toy', 'black']
   },
   { 
     id : '000-000-000c',
@@ -31,7 +33,8 @@ export let products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 45, 
+    priceCents: 45,
+    keyword : ['lion', 'toy'] 
   },
   { 
     id : '000-000-000d',
@@ -43,6 +46,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 39, 
+    keyword : ['elephant', 'toy']
   },
   {
     id : '000-000-000f',
@@ -54,6 +58,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 65, 
+    keyword : ['chicken', 'toy']
   },
   { 
     id : '000-000-000g',
@@ -64,7 +69,8 @@ export let products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 89, 
+    priceCents: 89,
+    keyword : ['chameleon', 'toy'] 
   },
   {
     id : '000-000-000h',
@@ -76,6 +82,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 64, 
+    keyword : ['dinosaur', 'toy']
   },
 
   { 
@@ -88,30 +95,9 @@ export let products = [
       reviews: 87
     },
     priceCents: 30, 
+    keyword : ['white', 'toy', 'bigger', 'wolf']
   },
-  { 
-    id : '000-000-000a',
-    name: 'white wolf toy',
-    imageName: 'wolf',
-    rating :
-    {
-      stars: '45',
-      reviews: 87
-    },
-    priceCents: 30, 
-  },
-
-  { 
-    id : '000-000-000b',
-    name: 'Black Bear toy',
-    imageName: 'bear',
-    rating :
-    {
-      stars: '45',
-      reviews: 70
-    },
-    priceCents: 450, 
-  },
+  
   { 
     id : '000-000-000c',
     name: 'Lion toy',
@@ -121,7 +107,8 @@ export let products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 45, 
+    priceCents: 45,
+    keyword : ['lion', 'toy'] 
   },
   { 
     id : '000-000-000d',
@@ -133,6 +120,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 39, 
+    keyword : ['elephant', 'toy']
   },
   {
     id : '000-000-000f',
@@ -144,6 +132,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 65, 
+    keyword : ['chicken', 'toy']
   },
   { 
     id : '000-000-000g',
@@ -154,7 +143,8 @@ export let products = [
       stars: '45',
       reviews: 87
     },
-    priceCents: 89, 
+    priceCents: 89,
+    keyword : ['chameleon', 'toy'] 
   },
   {
     id : '000-000-000h',
@@ -166,6 +156,7 @@ export let products = [
       reviews: 87
     },
     priceCents: 64, 
+    keyword : ['dinosaur', 'toy']
   },
 
   { 
@@ -178,7 +169,9 @@ export let products = [
       reviews: 87
     },
     priceCents: 30, 
-  },
+    keyword : ['white', 'toy', 'bigger', 'wolf', 'bigger white wolf toy', 'wolf toy']
+  }
+
 
 ];
 

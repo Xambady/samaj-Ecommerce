@@ -4,12 +4,6 @@ import { sortProducts } from "./sortFunction.js";
 import { generateHtml, refreshPage } from "./utils/utils.js";
 
 
-
-
-
-
-
-
 loadCart();
 
 // beginning of render page function
