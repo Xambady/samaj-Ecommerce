@@ -1,5 +1,8 @@
 import {loadCart, saveToStorage, addToCart} from "./cart.js"
 import {products} from "./data/data.js"
+import { sortProducts } from "./sortFunction.js";
+import { generateHtml, refreshPage } from "./utils/utils.js";
+
 
 
 
@@ -11,54 +14,18 @@ loadCart();
 
 // beginning of render page function
 
-function renderPage(){ 
+export function renderPage(){ 
   let accumulatorHtml = '';
   let mainPage = document.querySelector('.js-main-page');
 
   products.forEach((product)=>{
-  let generateHtml = `
-  <div class="parent-container js-parent-container">
-      <div class="image-container">
-        <img class="product-images" src="images/${product.imageName}.jpg">
-        <p class="cart-display js-cart-display"></p>
-      </div>
-
-      <p class="product-title">${product.name}</p>
-
-      <div class="star-review-container">
-        <img src="" alt="image">
-      </div>
-
-      <p class="price-container">$${product.priceCents.toFixed(2)}</p>
-
-      <select class='js-dropdown-selectors dropdown-selector'>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      
-      </select>
-
-      <div class="cart-container">
-        <button class="cart-button-blue" data-product-id="${product.id}">
-          Add to Cart
-        </button> 
-      </div>
-
-  
-
-    </div>
-`;
+  let generatedHtml = generateHtml(product);
   renderCartButton();
-  accumulatorHtml += generateHtml});
+  accumulatorHtml += generatedHtml});
   mainPage.innerHTML = accumulatorHtml;
   accumulatorHtml = '';
+  sorting();
+  refreshPage();
 };
 
 renderPage();
@@ -67,7 +34,7 @@ renderPage();
 
 //start of render cart button function
 
-function renderCartButton(){
+export function renderCartButton(){
   let cartButtons = document.querySelectorAll('.cart-button-blue')
 
   cartButtons.forEach((button, index)=>{
@@ -108,13 +75,30 @@ function renderCartButton(){
 }
 renderCartButton();
 
-// let searchButton = document.querySelector('.search-text');
 
-// searchButton.addEventListener('click', ()=>{
-//   let textBox = document.querySelector('.textbox');
-//   console.log(textBox.value[0])
+function sorting(){
+let searchButton = document.querySelector('.search-text');
+searchButton.addEventListener('click', (e)=>{
+  e.preventDefault();
+  let textBox = document.querySelector('.textbox');
+  let textboxValue = textBox.value;
+  let newArray = sortProducts(textboxValue);
+  let sortedAccumulator = '';
+  let mainPage = document.querySelector('.js-main-page');
+
+  //loop start
+  newArray.forEach((product)=>{
+  sortedAccumulator += generateHtml(product);
+  });
+  //loop end
+
+  mainPage.innerHTML = sortedAccumulator; 
+  renderCartButton();
   
-// })
+  
+})};
+
+sorting()
 
 
 

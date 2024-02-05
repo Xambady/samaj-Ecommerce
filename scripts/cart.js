@@ -1,13 +1,10 @@
 export let cart; 
+
 export function loadFromStorage(){
- cart = JSON.parse(localStorage.getItem('cart')) || [{
-  id: '000-000-000a',
-  quantity: 3,
-  deliveryId: '1'}];};
+ cart = JSON.parse(localStorage.getItem('cart')) || []};
 
   loadFromStorage();
 
-  // console.log(cart)
 
 
 export function saveToStorage(){
