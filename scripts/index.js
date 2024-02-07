@@ -11,18 +11,18 @@ loadCart();
 export function renderPage(){ 
   let accumulatorHtml = '';
   let mainPage = document.querySelector('.js-main-page');
-
   products.forEach((product)=>{
   let generatedHtml = generateHtml(product);
-  renderCartButton();
   accumulatorHtml += generatedHtml});
   mainPage.innerHTML = accumulatorHtml;
   accumulatorHtml = '';
   sorting();
   refreshPage();
+  renderCartButton()
 };
 
 renderPage();
+
 
 // end of render page function
 
@@ -39,11 +39,6 @@ export function renderCartButton(){
       setTimeout(()=>{
         button.classList.remove('color-green')
       }, 1000)
-      //writing timeout to remove display paragraph from the page
-      setTimeout(()=>{
-        displays[index].innerHTML = '';
-        displays[index].classList.remove('addCart-display');
-      }, 1000);
       //grabbing values from dropdown selectors to use as quantity, used button forEach index to point to elements in dropdown nodelist 
       let dropDownSelectors = document.querySelectorAll('.js-dropdown-selectors')
       let dropDownValue = dropDownSelectors[index].value;
@@ -54,7 +49,12 @@ export function renderCartButton(){
         displays[index].innerHTML = `${dropDownValue} products added`;
       } else{
         displays[index].innerHTML = `${dropDownValue} product added`;
-      }
+      };
+       //writing timeout to remove display paragraph from the page
+       setTimeout(()=>{
+        displays[index].innerHTML = '';
+        displays[index].classList.remove('addCart-display');
+      }, 1000); 
       //pushing items to cart, used button forEach index to point to elements in products array
       addToCart(products, dropDownValue, index)
       //looping cart and adding all quantities to display in dom
@@ -67,8 +67,6 @@ export function renderCartButton(){
     })
   })
 }
-renderCartButton();
-
 
 function sorting(){
 let searchButton = document.querySelector('.search-text');
@@ -93,18 +91,3 @@ searchButton.addEventListener('click', (e)=>{
 })};
 
 sorting()
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-

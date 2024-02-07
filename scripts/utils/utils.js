@@ -1,5 +1,4 @@
-import { renderPage } from "../../scripts/index.js";
-import {renderCartButton} from '../../scripts/index.js'
+import { renderPage, renderCartButton } from "../../scripts/index.js";
 
 
 
