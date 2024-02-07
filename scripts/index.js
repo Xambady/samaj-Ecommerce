@@ -45,16 +45,17 @@ export function renderCartButton(){
       //selecting display paragraph in DOM & adding innerhtml and classlist for cart adding pop-up
       let displays = document.querySelectorAll('.js-cart-display');
       displays[index].classList.add('addCart-display');
+      console.log(displays[index])
       if(dropDownValue > 1){
         displays[index].innerHTML = `${dropDownValue} products added`;
       } else{
         displays[index].innerHTML = `${dropDownValue} product added`;
       };
-       //writing timeout to remove display paragraph from the page
-       setTimeout(()=>{
-        displays[index].innerHTML = '';
-        displays[index].classList.remove('addCart-display');
-      }, 1000); 
+      //writing timeout to remove display paragraph from the page
+      setTimeout(()=>{
+      displays[index].innerHTML = '';
+      displays[index].classList.remove('addCart-display')
+      console.log(displays[index])}, 2000); 
       //pushing items to cart, used button forEach index to point to elements in products array
       addToCart(products, dropDownValue, index)
       //looping cart and adding all quantities to display in dom
@@ -64,8 +65,8 @@ export function renderCartButton(){
       saveToStorage();
 
     
-    })
-  })
+    });
+  });
 }
 
 function sorting(){
