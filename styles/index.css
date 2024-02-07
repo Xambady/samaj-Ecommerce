@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(234, 228, 228); 
+  background-color: white; 
   padding-top: 40px;
   padding-left: 10px;
 }
@@ -90,7 +90,7 @@ select{
 .main-page{
  display: grid;
  grid-template-columns: 200px 200px 200px 200px 200px 200px 200px;
- background-color: rgb(234, 228, 228);
+ background-color: white;
  column-gap: 26px;
  row-gap: 5px;
  justify-content: center;
@@ -98,7 +98,7 @@ select{
 }
 
 .parent-container{
-  background-color: white;;
+  background-color: rgb(221, 232, 244);;
   width: 200px;
   display: flex;
   flex-direction: column;
