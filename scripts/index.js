@@ -1,6 +1,6 @@
 import {loadCart, saveToStorage, addToCart} from "./cart.js"
 import {products} from "./data/data.js"
-import { sortProducts } from "./sortFunction.js";
+import {sortProductsII } from "./sortFunction.js";
 import { generateHtml, refreshPage } from "./utils/utils.js";
 
 
@@ -45,7 +45,6 @@ export function renderCartButton(){
       //selecting display paragraph in DOM & adding innerhtml and classlist for cart adding pop-up
       let displays = document.querySelectorAll('.js-cart-display');
       displays[index].classList.add('addCart-display');
-      console.log(displays[index])
       if(dropDownValue > 1){
         displays[index].innerHTML = `${dropDownValue} products added`;
       } else{
@@ -72,17 +71,20 @@ export function renderCartButton(){
 function sorting(){
 let searchButton = document.querySelector('.search-text');
 searchButton.addEventListener('click', (e)=>{
-  e.preventDefault();
-  let textBox = document.querySelector('.textbox');
-  let textboxValue = textBox.value;
-  let newArray = sortProducts(textboxValue);
+  let newArray = sortProductsII();
+  console.log(newArray)
   let sortedAccumulator = '';
   let mainPage = document.querySelector('.js-main-page');
 
   //loop start
-  newArray.forEach((product)=>{
-  sortedAccumulator += generateHtml(product);
-  });
+  if(newArray.length === 0){
+    sortedAccumulator = 'No such Item'
+  }else{
+    newArray.forEach((product)=>{
+      sortedAccumulator += generateHtml(product);
+      });
+  }
+
   //loop end
 
   mainPage.innerHTML = sortedAccumulator; 

@@ -50,6 +50,7 @@ return generateHtml;
 
 export function refreshPage(){
   document.querySelector('.home-container').addEventListener('click', ()=>{
+    document.querySelector('.textbox').value = '';
     renderPage();
     renderCartButton();
   })
